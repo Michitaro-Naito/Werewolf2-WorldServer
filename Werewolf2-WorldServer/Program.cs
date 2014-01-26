@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.AspNet.SignalR;
+using Microsoft.Owin.Hosting;
+using Owin;
+using Microsoft.Owin.Cors;
 
 namespace Werewolf2_WorldServer
 {
@@ -10,8 +10,16 @@ namespace Werewolf2_WorldServer
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Werewolf2-WorldServer Initial Commit");
-            Console.Read();
+            // This will *ONLY* bind to localhost, if you want to bind to all addresses
+            // use http://*:8080 to bind to all addresses. 
+            // See http://msdn.microsoft.com/en-us/library/system.net.httplistener.aspx 
+            // for more information.
+            string url = "http://*:8080";
+            using (WebApp.Start<Werewolf2_WorldServer.OwinStartup>(url))
+            {
+                Console.WriteLine("Server running on {0}", url);
+                Console.ReadLine();
+            }
         }
     }
 }
